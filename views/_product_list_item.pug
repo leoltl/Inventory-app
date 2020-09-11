@@ -13,6 +13,8 @@ mixin _product_list_item(item)
         if item.number_in_stock
           +checkmark() 
           | Available online
+        else
+          | Sold out
         br
         +checkmark() 
         | Available at nearby stores

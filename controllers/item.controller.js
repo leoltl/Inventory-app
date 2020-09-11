@@ -22,7 +22,7 @@ exports.create_post = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const categories = await Category.find({});
-      console.log(req.body);
+      (categories.find((category) => category._id == req.body.category)).checked = true;
       return res.render('item_create', {
         item: req.body,
         errors: errors.array(),

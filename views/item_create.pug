@@ -23,7 +23,7 @@ block content
       fieldset
         p Product category:
         each category in categories
-          input(type="radio" name='category' value=category._id)
+          input(type="radio" name='category' value=category._id checked=category.checked)
           label(for=category.name) #{category.name}
 
       button(type="submit") Create

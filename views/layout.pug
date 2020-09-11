@@ -1,3 +1,5 @@
+include _navbar
+
 doctype html
 html
   head
@@ -5,4 +7,5 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    +_navbar()
     block content
