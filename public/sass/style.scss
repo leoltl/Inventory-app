@@ -28,23 +28,42 @@ nav {
   }
 }
 
+
+button {
+  height: 48px;
+  border: none;
+  background: none;
+  width: 100%;
+  font-weight: 500;
+  cursor: pointer;
+  background: #0046be;
+  color: white;
+  &.add-to-cart {
+    background: #ffce00;
+  }
+}
+
 .shop-by {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-row-gap: 2vh;
   padding-bottom: 5vh;
   border-bottom: 1px solid #ddd;
   &__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     text-transform: capitalize;
     font-size: 1.05rem;
     font-weight: 600;
+    a {
+      color: #0046be;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
   &__img-wrapper {
-    width: 150px;
-    height: 150px;
+    width: 90px;
+    height: 90px;
     margin-bottom: 10px;
     & img {
       width: 100%;
@@ -158,18 +177,23 @@ nav {
   }
 }
 
-button {
-  height: 48px;
-  border: none;
-  background: none;
-  width: 100%;
-  font-weight: 500;
-  cursor: pointer;
-  &.add-to-cart {
-    background: #ffce00;
+main.category-create,
+main.item-create {
+  padding: 0 2.5vw;
+}
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  > * {
+    padding: 5px;
   }
-  &.pick-up {
-    background: #0046be;
-    color: white;
+  > *:last-child {
+    margin-top: 5vh;
+  }
+  & h1 {
+    font-size: 1.333rem;
   }
 }

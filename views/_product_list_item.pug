@@ -8,7 +8,7 @@ mixin _product_list_item(item)
       .item__name 
         | #{item.name} 
       .item__price 
-        | $ #{item.price}
+        | $#{item.price}
       .item__stock
         if item.number_in_stock
           +checkmark() 

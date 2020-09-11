@@ -28,13 +28,13 @@ router.get ('/categories'     , category_controller.list);
 
 // create
 router.get ('/item/create'    , item_controller.create_get);
-router.post('/item/create'    , item_controller.create_get);
+router.post('/item/create'    , item_controller.create_post);
 // update
 router.get ('/item/update'    , item_controller.update_get);
-router.post('/item/update'    , item_controller.update_get);
+router.post('/item/update'    , item_controller.update_post);
 // delete
 router.get ('/item/delete'    , item_controller.delete_get);
-router.post('/item/delete'    , item_controller.delete_get);
+router.post('/item/delete'    , item_controller.delete_post);
 // read
 router.get ('/item/:id'       , item_controller.detail);
 router.get ('/items'          , item_controller.list);

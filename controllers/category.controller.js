@@ -1,12 +1,37 @@
+const { body, sanitizeBody, validationResult } = require('express-validator');
+
 const Category = require('../models/category.model');
 const Item     = require('../models/item.model');
 
 exports.create_get = function create_get(req, res) {
-  res.status(500).send('TO BE IMPLEMENTED');
+  res.render('category_create');
 }
-exports.create_post = function create_post(req, res) {
-  res.status(500).send('TO BE IMPLEMENTED');
-}
+exports.create_post = [
+  body('name').isLength({ min: 1}).trim().withMessage('Category name is required.'),
+  sanitizeBody('name').escape(),
+  async function create_post(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render('category_create', {
+        category: req.body,
+        errors: errors.array() 
+      });
+    }
+
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      icon_url: req.body.icon_url,
+    });
+
+    try {
+      await category.save();
+      res.redirect(category.url);
+    } catch(e) {
+      next(e);
+    }
+  } 
+];
 
 exports.update_get = function update_get(req, res) {
   res.status(500).send('TO BE IMPLEMENTED');
