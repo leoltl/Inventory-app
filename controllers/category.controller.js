@@ -72,3 +72,31 @@ exports.index = async function index(req, res) {
     next(e);
   }
 }
+
+exports.admin = async function admin(req, res) {
+  try {
+    const categories = await Category.find({}).select('name');
+    const items = await Item.find({}).select('name');
+    
+    const categoryHeader = Object.keys(categories[1]._doc);
+    const itemHeader = Object.keys(categories[1]._doc);
+
+    res.render('admin', {
+      categories: buildRows(categories, categoryHeader),
+      items: buildRows(items, itemHeader),
+    });
+  } catch(e) {
+    console.log('smthg wrong, ', e)
+    next(e);
+  }
+}
+
+function buildRows(results, headerKeys) {
+  const columns = [...headerKeys.filter((key) => key !== '__v' && key !== '_id'), 'url', 'edit_url']
+  const rows = results.map((result) => {
+    return columns.map((columnKey) => {
+      return result[columnKey];
+    });
+  });
+  return [columns, ...rows];
+}

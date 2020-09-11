@@ -8,6 +8,7 @@ var item_controller     = require('../controllers/item.controller');
 /* Index Routes */
 
 router.get('/', category_controller.index);
+router.get('/admin', category_controller.admin)
 
 /* Category Routes */
 

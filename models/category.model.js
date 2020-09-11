@@ -28,4 +28,10 @@ CategorySchema
     return `/catalog/category/${this._id}`;
   });
 
+CategorySchema
+  .virtual('edit_url')
+  .get(function () {
+    return `/catalog/category/${this._id}/edit`;
+  });
+
 module.exports = mongoose.model('Category', CategorySchema);

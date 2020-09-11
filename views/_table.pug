@@ -1,0 +1,15 @@
+mixin _table(headers, rows)
+  table.table.table-striped
+    thead
+      tr
+        each header in headers
+          th(scope='col') #{header}
+    tbody
+      each row in rows
+        tr
+          each cell in row
+            if cell.includes('/catalog/')
+              td
+                a(href=cell) Link
+            else
+              td #{cell}

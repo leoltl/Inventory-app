@@ -41,4 +41,10 @@ ItemSchema
     return `/catalog/item/${this._id}`;
   });
 
+ItemSchema
+  .virtual('edit_url')
+  .get(function () {
+    return `/catalog/item/${this._id}/edit`;
+  });
+
 module.exports = mongoose.model('Item', ItemSchema)
