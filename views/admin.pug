@@ -2,10 +2,20 @@ extends layout
 include _table
 
 block content
-  main.index
-    | Admin Panel
-    +_table(categories[0], categories.slice(1))
-    +_table(items[0], items.slice(1))
+  main.admin
+    h1 Admin Panel
+    .container-fluid
+      h2 Category
+      hr
+      +_table(categories[0], categories.slice(1))
+      a(href='/catalog/category/create')
+        button Create category
+    .container-fluid
+      h2 Product
+      hr
+      +_table(items[0], items.slice(1))
+      a(href='/catalog/item/create')
+        button Create product
     
 
 block script

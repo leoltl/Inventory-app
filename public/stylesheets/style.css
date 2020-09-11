@@ -140,10 +140,10 @@ button {
   border: none;
   background: none;
   width: 100%;
-  font-weight: 500;
+  font-weight: bold !important;
   cursor: pointer;
   background: #0046be;
-  color: white;
+  color: white !important;
 }
 button.add-to-cart {
   background: #ffce00;
