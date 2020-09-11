@@ -1,0 +1,175 @@
+@import './reset';
+@import './type-scale';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  h2 {
+    font-size: 1.777em;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.shop-by {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 5vh;
+  border-bottom: 1px solid #ddd;
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  &__img-wrapper {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    & img {
+      width: 100%;
+    }
+  }
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 1vh 2.5vw;
+  height: 150px;
+  &__name {
+    grid-row: 1/2;
+    grid-column:2/3;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+  }
+  &__price {
+    grid-row: 2/3;
+    grid-column:2/3;
+    font-size: 1.333rem;
+    font-weight: bold;
+  }
+  &__img-wrapper {
+    grid-row: 1/4;
+    grid-column: 1/2;
+    width: 100px;
+    height: 100px;
+    & img {
+      width: 100%;
+    }
+  }
+  &__stock {
+    display: initial;
+    grid-row: 3/4;
+    grid-column: 2/3;
+    & svg {
+      height: 16px;
+      width: 16px;
+      fill: #308800;
+      margin-right: 0.25rem;
+    }
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #888;
+  }
+}
+
+.category {
+  & h2 {
+    padding-left: 2.5vw;
+    text-transform: capitalize;
+    font-size: 1.333rem;
+  }
+}
+
+.product-detail {
+  --action-height: 60px;
+  padding: 0 2.5vw;
+  margin-bottom: var(--action-height);
+  > * {
+    border-bottom: 1px solid #ccc;
+  }
+  &__header h1 {
+    padding-top: 1rem;
+    padding-left: 2.5vw;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+  &__image {
+    width: 100%;
+    height: 100vw;
+    padding: 1rem;
+    &-wrapper {
+      width: 100%;
+      & img {
+        width: 100%;
+      }
+    }
+  }
+  &__price {
+    padding: 1rem 0;
+    font-size: 1.777rem;
+    font-weight: 900;
+  }
+  &__description {
+    & h3 {
+      font-size: 1.333rem;
+      margin-top: 1.25rem;
+    }
+    padding-bottom: 1rem;
+  }
+  &__action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 0 2.5vw;
+    background: white;
+    height: var(--action-height);
+    > * {
+      margin: 0 1vw;
+    }
+  }
+}
+
+button {
+  height: 48px;
+  border: none;
+  background: none;
+  width: 100%;
+  font-weight: 500;
+  cursor: pointer;
+  &.add-to-cart {
+    background: #ffce00;
+  }
+  &.pick-up {
+    background: #0046be;
+    color: white;
+  }
+}

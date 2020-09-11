@@ -1,5 +1,13 @@
 extends layout
+include _product_list_item
+include _shop_by_category_icon
 
 block content
-  h1= title
-  p Welcome to #{title}
+  nav
+    h2 Shop by category
+    ul.shop-by
+      each category in categories
+        +_shop_by_category_icon(category)
+  section.item-list
+    each item in items
+      +_product_list_item(item)      

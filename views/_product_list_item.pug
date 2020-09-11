@@ -1,0 +1,18 @@
+include _icons
+
+mixin _product_list_item(item)
+  a(href=item.url)
+    article.item
+      .item__img-wrapper
+          img(src=item.image_url alt=`shop ${item.name}`)
+      .item__name 
+        | #{item.name} 
+      .item__price 
+        | $ #{item.price}
+      .item__stock
+        if item.number_in_stock
+          +checkmark() 
+          | Available online
+        br
+        +checkmark() 
+        | Available at nearby stores

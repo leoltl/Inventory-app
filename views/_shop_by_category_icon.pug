@@ -1,0 +1,6 @@
+mixin _shop_by_category_icon(category)
+  .shop-by__icon
+    a(href=category.url)
+      .shop-by__img-wrapper
+        img(src=category.icon_url alt=`shop ${category.name}`)
+      | #{category.name}

@@ -15,6 +15,10 @@ const CategorySchema = new Schema({
     default: '',
     maxLength: 150,
   },
+  icon_url: {
+    type: String,
+    default: '',
+  }
 });
 
 // Virtual for category's URL

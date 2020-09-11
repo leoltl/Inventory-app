@@ -28,6 +28,10 @@ const ItemSchema = new Schema({
     type: Schema.Types.ObjectId, 
     ref: 'Category' 
   }],
+  image_url: {
+    type: String,
+    default: '',
+  }
 });
 
 // Virtual for items's URL

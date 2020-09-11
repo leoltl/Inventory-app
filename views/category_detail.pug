@@ -1,0 +1,10 @@
+extends layout
+include _product_list_item
+
+block content
+  .category
+    h2 #{category.name}
+
+  section.item-list
+    each item in items
+      +_product_list_item(item)

@@ -39,4 +39,4 @@ router.post('/item/delete'    , item_controller.delete_get);
 router.get ('/item/:id'       , item_controller.detail);
 router.get ('/items'          , item_controller.list);
 
-modules.exports = router;
+module.exports = router;

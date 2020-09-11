@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  main.product-detail
+    header.product-detail__header
+      h1 #{item.name}
+    figure.product-detail__image
+      .product-detail__image-wrapper
+        img(src=item.image_url alt=`shop ${item.name}`)
+    section.product-detail__price
+      | $#{item.price}
+    section.product-detail__description
+      h3 Overview
+      p #{item.description}
+    section.product-detail__action
+      button.add-to-cart
+        | Add to cart
+      button.pick-up
+        | Pick up at store
