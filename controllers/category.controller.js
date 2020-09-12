@@ -14,14 +14,14 @@ exports.create_post = [
     if (!errors.isEmpty()) {
       return res.render('category_create', {
         category: req.body,
-        errors: errors.array() 
+        errors:   errors.array() 
       });
     }
 
     const category = new Category({
-      name: req.body.name,
+      name:        req.body.name,
       description: req.body.description,
-      icon_url: req.body.icon_url,
+      icon_url:    req.body.icon_url,
     });
 
     try {
@@ -33,12 +33,42 @@ exports.create_post = [
   } 
 ];
 
-exports.update_get = function update_get(req, res) {
-  res.status(500).send('TO BE IMPLEMENTED');
+exports.update_get = async function update_get(req, res, next) {
+  const [category] = await Category.find({ _id: req.params.id });
+  res.render('category_create', {
+    category,
+    isEdit: true,
+  })
 }
-exports.update_post = function update_post(req, res) {
-  res.status(500).send('TO BE IMPLEMENTED');
-}
+
+exports.update_post = [
+  body('name').isLength({ min: 1}).trim().withMessage('Category name is required.'),
+  sanitizeBody('name').escape(),
+  async function update_post(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render('category_create', {
+        category: req.body,
+        isEdit: true,
+        errors: errors.array() 
+      });
+    }
+
+    const category = new Category({
+      _id:         req.params.id,
+      name:        req.body.name,
+      description: req.body.description,
+      icon_url:    req.body.icon_url,
+    });
+
+    try {
+      await Category.findByIdAndUpdate(req.params.id, category);
+      res.redirect(category.url);
+    } catch (e) {
+      next(e)
+    }
+  }
+];
 
 exports.delete_get = function delete_get(req, res) {
   res.status(500).send('TO BE IMPLEMENTED');

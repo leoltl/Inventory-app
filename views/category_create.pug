@@ -4,14 +4,22 @@ block content
   main.category-create
     form.category-create(method="POST" action="")
       - let [name, description, icon_url] = category ? [category.name, category.description, category.icon_url] : ['', '', ''];
-      h1 Create a new product category
+      h1 
+        if isEdit
+          | #{`Update: ${name}`}
+        else 
+          | Create a new product category
       label(for="name") Product category:
       input(name="name" value=name)
       label(for="description")  Description:
       input(name="description" value=description)
       label(for="icon_url")  Icon Image URL:
       input(name="icon_url" value=icon_url)
-      button(type="submit") Create
+      button(type="submit") 
+        if isEdit
+          | Save Edit
+        else
+          | Create
     if errors 
       br
       | Form errors:

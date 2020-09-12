@@ -16,8 +16,8 @@ router.get('/admin', category_controller.admin)
 router.get ('/category/create', category_controller.create_get);
 router.post('/category/create', category_controller.create_post);
 // update
-router.get ('/category/update', category_controller.update_get);
-router.post('/category/update', category_controller.update_post);
+router.get ('/category/:id/edit', category_controller.update_get);
+router.post('/category/:id/edit', category_controller.update_post);
 // delete
 router.get ('/category/delete', category_controller.delete_get);
 router.post('/category/delete', category_controller.delete_post);
@@ -31,8 +31,8 @@ router.get ('/categories'     , category_controller.list);
 router.get ('/item/create'    , item_controller.create_get);
 router.post('/item/create'    , item_controller.create_post);
 // update
-router.get ('/item/update'    , item_controller.update_get);
-router.post('/item/update'    , item_controller.update_post);
+router.get ('/item/:id/edit'    , item_controller.update_get);
+router.post('/item/:id/edit'    , item_controller.update_post);
 // delete
 router.get ('/item/delete'    , item_controller.delete_get);
 router.post('/item/delete'    , item_controller.delete_post);

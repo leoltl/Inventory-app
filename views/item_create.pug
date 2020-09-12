@@ -8,7 +8,11 @@ block content
           ? [item.name, item.description, item.image_url, item.price, item.number_in_stock]
           : ['', '', '', '', '']
 
-      h1 Create a new item
+      h1
+        if isEdit
+          | #{`Update: ${name}`}
+        else  
+        Create a new item
       label(for="name") Item name:
       input(name="name" value=name)
       label(for="description")  Item Description:
@@ -26,7 +30,11 @@ block content
           input(type="radio" name='category' value=category._id checked=category.checked)
           label(for=category.name) #{category.name}
 
-      button(type="submit") Create
+      button(type="submit")
+        if isEdit
+          | Save Edit
+        else
+          | Create
     if errors 
       br
       | Form errors:
