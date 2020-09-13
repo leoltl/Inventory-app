@@ -20,6 +20,9 @@ block content
           | Save Edit
         else
           | Create
+    if isEdit
+      form.category-delete(method='POST' action=`/catalog/category/${category._id}/delete`)
+        button.danger(type='submit') Delete  
     if errors 
       br
       | Form errors:

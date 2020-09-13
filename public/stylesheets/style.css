@@ -148,6 +148,12 @@ button {
 button.add-to-cart {
   background: #ffce00;
 }
+button.danger {
+  background: none;
+  border: 2px solid red;
+  border-radius: 2px;
+  color: darkred !important;
+}
 
 nav.main-nav {
   display: grid;

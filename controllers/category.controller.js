@@ -70,11 +70,13 @@ exports.update_post = [
   }
 ];
 
-exports.delete_get = function delete_get(req, res) {
-  res.status(500).send('TO BE IMPLEMENTED');
-}
-exports.delete_post = function delete_post(req, res) {
-  res.status(500).send('TO BE IMPLEMENTED');
+exports.delete_post = async function delete_post(req, res) {
+  try {
+    await Category.findByIdAndRemove(req.params.id);
+    res.redirect('/catalog/admin')
+  } catch (e) {
+    next(e)
+  }
 }
 
 exports.detail = async function detail(req, res) {
