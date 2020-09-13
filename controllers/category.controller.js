@@ -7,13 +7,19 @@ const Image    = require('../models/image.model');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
+const categoryValidator = [
+  body('name')
+  .trim()
+  .isLength({ min: 1}).withMessage('Category name is required.')
+  .escape(),
+]
+
 exports.create_get = function create_get(req, res) {
   res.render('category_create');
 }
 exports.create_post = [
   upload.single('image'),
-  body('name').isLength({ min: 1}).trim().withMessage('Category name is required.'),
-  sanitizeBody('name').escape(),
+  ...categoryValidator,
   async function create_post(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,8 +62,7 @@ exports.update_get = async function update_get(req, res, next) {
 
 exports.update_post = [
   upload.single('image'),
-  body('name').isLength({ min: 1}).trim().withMessage('Category name is required.'),
-  sanitizeBody('name').escape(),
+  ...categoryValidator,
   async function update_post(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -122,6 +127,7 @@ exports.detail = async function detail(req, res) {
     next(e)
   }
 }
+
 exports.list = function list(req, res) {
   res.status(500).send('TO BE IMPLEMENTED');
 }
@@ -146,8 +152,8 @@ exports.admin = async function admin(req, res) {
     const itemHeader = Object.keys(categories[1]._doc);
 
     res.render('admin', {
-      categories: buildRows(categories, categoryHeader),
-      items: buildRows(items, itemHeader),
+      categories: buildRows(categoryHeader, categories),
+      items: buildRows(itemHeader, items),
     });
   } catch(e) {
     console.log('smthg wrong, ', e)
@@ -155,8 +161,8 @@ exports.admin = async function admin(req, res) {
   }
 }
 
-function buildRows(results, headerKeys) {
-  const columns = [...headerKeys.filter((key) => key !== '__v' && key !== '_id'), 'url', 'edit_url']
+function buildRows(headerKeys, results) {
+  const columns = [...headerKeys.filter((key) => !(key === '__v' && key === '_id')), 'url', 'edit_url']
   const rows = results.map((result) => {
     return columns.map((columnKey) => {
       return result[columnKey];

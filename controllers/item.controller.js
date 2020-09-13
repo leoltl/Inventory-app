@@ -6,20 +6,31 @@ const Item     = require('../models/item.model');
 const Image    = require('../models/image.model');
 const upload = multer({ storage: multer.memoryStorage() });
 
-exports.create_get = async function create_get(req, res) {
-  const categories = await Category.find({});
-  res.render('item_create', { categories });
+const itemValidator = [
+  body('*').trim(),
+  body('name')
+    .notEmpty().withMessage('Name cannot be empty.')
+    .escape(),
+  body('price')
+    .isNumeric().withMessage('Price has to be a numeric value.')
+    .escape().toFloat(),
+  body('number_in_stock')
+    .isInt().withMessage('Number in stock has to be an Integer')
+    .escape().toInt(),
+]
+
+exports.create_get = async function create_get(req, res, next) {
+  try {
+    const categories = await Category.find({});
+    res.render('item_create', { categories });
+  } catch (e) {
+    next(e)
+  }
 }
+
 exports.create_post = [
   upload.single('image'),
-  body('name').notEmpty().withMessage('Name cannot be empty.'),
-  body('price').isNumeric().withMessage('Price has to be a numeric value.'),
-  body('number_in_stock').isInt().withMessage('Number in stock has to be an Integer'),
-  
-  sanitizeBody('*').trim(),
-  sanitizeBody('name').escape(),
-  sanitizeBody('price').escape().toFloat(),
-  sanitizeBody('number_in_stock').escape().toInt(),
+  ...itemValidator,
   async function create_post(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -31,11 +42,11 @@ exports.create_post = [
         errors: errors.array(),
       });
     }
-
+    let image;
+    
     try {
-
       if (req.file) {
-        var image = new Image ({
+        image = new Image ({
           data: req.file.buffer,
           content_type: req.file.mimetype,
         });
@@ -51,6 +62,7 @@ exports.create_post = [
         image_id:        image ? image.url : '',
       });
       await item.save();
+
       res.redirect(item.url);
     } catch(e) {
       console.log(e)
@@ -58,6 +70,7 @@ exports.create_post = [
       res.render('item_create', {
         categories,
         item: req.body,
+        errors: [{ msg: e.message }],
       })
     }
     
@@ -82,14 +95,7 @@ exports.update_get = async function update_get(req, res, next) {
 }
 exports.update_post = [
   upload.single('image'),
-  body('name').notEmpty().withMessage('Name cannot be empty.'),
-  body('price').isNumeric().withMessage('Price has to be a numeric value.'),
-  body('number_in_stock').isInt().withMessage('Number in stock has to be an Integer'),
-  
-  sanitizeBody('*').trim(),
-  sanitizeBody('name').escape(),
-  sanitizeBody('price').escape().toFloat(),
-  sanitizeBody('number_in_stock').escape().toInt(),
+  ...itemValidator,
   async function update_post(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -101,9 +107,10 @@ exports.update_post = [
         errors: errors.array() 
       });
     }
-
+    let image;
+    
     if (req.file) {
-      var image = new Image ({
+      image = new Image ({
         data: req.file.buffer,
         content_type: req.file.mimetype,
       });
@@ -129,7 +136,7 @@ exports.update_post = [
   }
 ]
 
-exports.delete_post = async function delete_post(req, res) {
+exports.delete_post = async function delete_post(req, res, next) {
   try {
     await Item.findByIdAndRemove(req.params.id);
     res.redirect('/catalog/admin')
@@ -138,7 +145,7 @@ exports.delete_post = async function delete_post(req, res) {
   }
 }
 
-exports.detail = async function detail(req, res) {
+exports.detail = async function detail(req, res, next) {
   try {
     const item = await Item.findById(req.params.id);
     res.render('item_detail', { item });
@@ -146,6 +153,7 @@ exports.detail = async function detail(req, res) {
     next(e)
   }
 }
+
 exports.list = function list(req, res) {
   res.status(500).send('TO BE IMPLEMENTED');
 }
