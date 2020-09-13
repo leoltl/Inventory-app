@@ -1,12 +1,17 @@
+const multer = require('multer');
 const { body, sanitizeBody, validationResult } = require('express-validator');
 
 const Category = require('../models/category.model');
 const Item     = require('../models/item.model');
+const Image    = require('../models/image.model');
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 exports.create_get = function create_get(req, res) {
   res.render('category_create');
 }
 exports.create_post = [
+  upload.single('image'),
   body('name').isLength({ min: 1}).trim().withMessage('Category name is required.'),
   sanitizeBody('name').escape(),
   async function create_post(req, res, next) {
@@ -18,10 +23,18 @@ exports.create_post = [
       });
     }
 
+    if (req.file) {
+      var image = new Image ({
+        data: req.file.buffer,
+        content_type: req.file.mimetype,
+      });
+      await image.save();
+    }
+
     const category = new Category({
       name:        req.body.name,
       description: req.body.description,
-      icon_url:    req.body.icon_url,
+      image_id:    (image && image.url) || '',
     });
 
     try {
@@ -42,6 +55,7 @@ exports.update_get = async function update_get(req, res, next) {
 }
 
 exports.update_post = [
+  upload.single('image'),
   body('name').isLength({ min: 1}).trim().withMessage('Category name is required.'),
   sanitizeBody('name').escape(),
   async function update_post(req, res) {
@@ -54,11 +68,19 @@ exports.update_post = [
       });
     }
 
+    if (req.file) {
+      var image = new Image ({
+        data: req.file.buffer,
+        content_type: req.file.mimetype,
+      });
+      await image.save();
+    }
+
     const category = new Category({
       _id:         req.params.id,
       name:        req.body.name,
       description: req.body.description,
-      icon_url:    req.body.icon_url,
+      image_id:    (image && image.url) || req.body.image_id,
     });
 
     try {

@@ -28,7 +28,7 @@ const ItemSchema = new Schema({
     type: Schema.Types.ObjectId, 
     ref: 'Category' 
   }],
-  image_url: {
+  image_id: {
     type: String,
     default: '',
   }

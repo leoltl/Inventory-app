@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
+    "devstart": "nodemon --harmony ./bin/www",
     "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart",
     "sass:watch": "sass ./public/sass:./public/stylesheets --watch"
   },
@@ -17,6 +17,7 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.4",
     "morgan": "~1.9.1",
+    "multer": "^1.4.2",
     "pug": "^3.0.0"
   },
   "devDependencies": {

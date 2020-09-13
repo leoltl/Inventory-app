@@ -4,7 +4,7 @@ mixin _product_list_item(item)
   a(href=item.url)
     article.item
       .item__img-wrapper
-          img(src=item.image_url alt=`shop ${item.name}`)
+          img(src=item.image_id alt=`shop ${item.name}`)
       .item__name 
         | #{item.name} 
       .item__price 

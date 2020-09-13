@@ -2,8 +2,8 @@ extends layout
 
 block content
   main.category-create
-    form.category-create(method="POST" action="")
-      - let [name, description, icon_url] = category ? [category.name, category.description, category.icon_url] : ['', '', ''];
+    form.category-create(method="POST" action="" enctype='multipart/form-data')
+      - let [name, description, image_id] = category ? [category.name, category.description, category.image_id] : ['', '', ''];
       h1 
         if isEdit
           | #{`Update: ${name}`}
@@ -13,8 +13,11 @@ block content
       input(name="name" value=name)
       label(for="description")  Description:
       input(name="description" value=description)
-      label(for="icon_url")  Icon Image URL:
-      input(name="icon_url" value=icon_url)
+      label(for="image_id")  Icon Image URL:
+      input(name="image_id" value=image_id)
+      label(for='image') Upload an Category Icon
+      input(type='file', name='image')
+
       button(type="submit") 
         if isEdit
           | Save Edit

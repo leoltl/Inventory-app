@@ -2,10 +2,10 @@ extends layout
 
 block content
   main.item-create
-    form.item-create(method="POST" action="")
+    form.item-create(method="POST" action="" enctype='multipart/form-data')
       - 
-        let [name, description, image_url, price='', number_in_stock=''] = item 
-          ? [item.name, item.description, item.image_url, item.price, item.number_in_stock]
+        let [name, description, image_id, price='', number_in_stock=''] = item 
+          ? [item.name, item.description, item.image_id, item.price, item.number_in_stock]
           : ['', '', '', '', '']
 
       h1
@@ -17,12 +17,14 @@ block content
       input(name="name" value=name)
       label(for="description")  Item Description:
       input(name="description" value=description)
-      label(for="image_url")  Product Image URL:
-      input(name="image_url" value=image_url)
+      label(for="image_id")  Product Image URL:
+      input(name="image_id" value=image_id)
       label(for="price")  Item price:
       input(name="price" value=price)
       label(for="number_in_stock")  Number in stock:
       input(name="number_in_stock" value=number_in_stock)
+      label(for='image') Upload an Product Image
+      input(type='file', name='image')
       
       fieldset
         p Product category:

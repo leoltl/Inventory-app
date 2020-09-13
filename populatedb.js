@@ -44,11 +44,15 @@ function createCategories() {
     { 
       name: 'ios devices',
       description: 'iPhones - Unlocked',
-      icon_url: 'https://merchandising-assets.bestbuy.ca/bltc8653f66842bff7f/bltb972321aaf8c188a/5d1d5846106d2f5640263e36/bbym-evergreen-icon-iphonexsmax.jpg?width=400&quality=80'
+      image_id: 'https://merchandising-assets.bestbuy.ca/bltc8653f66842bff7f/bltb972321aaf8c188a/5d1d5846106d2f5640263e36/bbym-evergreen-icon-iphonexsmax.jpg?width=400&quality=80'
     },
     { name: 'android devices',
       description: 'Android Phones - Unlocked',
-      icon_url: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/147/14797/14797691.jpg'
+      image_id: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/147/14797/14797691.jpg'
+    },
+    { name: 'google devices',
+      description: 'Google Phones - Unlocked',
+      image_id: '/images/5f5da99095cf6254cd9bde80'
     },
   ];
   return Promise.all(categories.map((categorydetails) => categoryCreate(categorydetails)));
@@ -62,7 +66,7 @@ function createItems() {
       price: 979.99,
       number_in_stock: 5, 
       category: [categories[0]],
-      image_url: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/138/13888/13888815.jpg'
+      image_id: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/138/13888/13888815.jpg'
     },
     { 
       name: 'Apple iPhone 11 64GB - Purple - Unlocked', 
@@ -70,15 +74,15 @@ function createItems() {
       price: 979.99,
       number_in_stock: 5,
       category: [categories[0]],
-      image_url: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/138/13888/13888819.jpg'
+      image_id: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/138/13888/13888819.jpg'
     },
     { 
       name: 'Apple iPhone 11 Pro Max 64GB - Midnight Green - Unlocked', 
       description: 'Shoot amazing videos and photos with the Ultra Wide, Wide and Telephoto cameras. Capture your best low-light photos with Night mode. Watch HDR movies and shows on the 6.5-inch Super Retina XDR display—the brightest iPhone display yet. Experience unprecedented performance with A13 Bionic for gaming, augmented reality (AR) and photography. And get all-day battery life and a new level of water resistance. All in the first iPhone powerful enough to be called Pro.',
       price: 1519.99,
-      number_in_stock: 5,
+      number_in_stock: 0,
       category: [categories[0]],
-      image_url: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/138/13888/13888854.jpg'
+      image_id: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/138/13888/13888854.jpg'
     },
     { 
       name: 'Samsung Galaxy Note20 Ultra 5G 512GB - Mystic Black - Unlocked', 
@@ -86,7 +90,7 @@ function createItems() {
       price: 1819.99,
       number_in_stock: 5, 
       category: [categories[1]],
-      image_url: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/147/14797/14797696.jpg'
+      image_id: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/147/14797/14797696.jpg'
     },
     { 
       name: 'Samsung Galaxy Note20 Ultra 5G 128GB - Mystic Bronze - Unlocked', 
@@ -94,7 +98,15 @@ function createItems() {
       price: 1819.99,
       number_in_stock: 5, 
       category: [categories[1]],
-      image_url: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/147/14797/14797694.jpg'
+      image_id: 'https://multimedia.bbycastatic.ca/multimedia/products/150x150/147/14797/14797694.jpg'
+    },
+    { 
+      name: 'Google Pixel 4a 128GB - Just Black - Unlocked', 
+      description: 'Balance your home, work, and entertainment needs with the Google Pixel 4a smartphone. It\'s powered by a Qualcomm Snapdragon processor and 6GB of RAM for a premium user experience. The 8MP front-facing and 12.2MP dual-pixel cameras include Live HDR, Super Res Zoom, and more, so you can upgrade your photography game. Its adaptive battery lasts up to 24 hours on a single charge.',
+      price: 479.99,
+      number_in_stock: 23, 
+      category: [categories[2]],
+      image_id: '/images/5f5da99095cf6254cd9bde80'
     },
   ];
   return Promise.all(items.map((categorydetails) => itemCreate(categorydetails)));

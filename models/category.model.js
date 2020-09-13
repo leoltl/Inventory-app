@@ -15,7 +15,7 @@ const CategorySchema = new Schema({
     default: '',
     maxLength: 150,
   },
-  icon_url: {
+  image_id: {
     type: String,
     default: '',
   }
