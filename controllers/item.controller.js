@@ -1,10 +1,9 @@
-const multer = require('multer');
-const { body, sanitizeBody, validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 const Category = require('../models/category.model');
 const Item     = require('../models/item.model');
 const Image    = require('../models/image.model');
-const upload = multer({ storage: multer.memoryStorage() });
+const { upload } = require('../upload');
 
 const itemValidator = [
   body('*').trim(),
