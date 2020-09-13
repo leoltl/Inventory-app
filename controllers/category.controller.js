@@ -162,7 +162,7 @@ exports.admin = async function admin(req, res) {
 }
 
 function buildRows(headerKeys, results) {
-  const columns = [...headerKeys.filter((key) => !(key === '__v' && key === '_id')), 'url', 'edit_url']
+  const columns = [...headerKeys.filter((key) => !(key === '__v' || key === '_id')), 'url', 'edit_url']
   const rows = results.map((result) => {
     return columns.map((columnKey) => {
       return result[columnKey];
