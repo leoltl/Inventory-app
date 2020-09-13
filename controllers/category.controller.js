@@ -94,8 +94,18 @@ exports.update_post = [
 
 exports.delete_post = async function delete_post(req, res) {
   try {
-    await Category.findByIdAndRemove(req.params.id);
-    res.redirect('/catalog/admin')
+    const categoryCount = await Item.countDocuments({ category: req.params.id });
+    if (categoryCount === 0) {
+      await Category.findByIdAndRemove(req.params.id);
+      res.redirect('/catalog/admin')
+    } else {
+      const [category] = await Category.find({ _id: req.params.id });
+      res.render('category_create', {
+        category,
+        isEdit: true,
+        errors: [{ msg: 'Delete Failed: Category still contains product' }]
+      })
+    }
   } catch (e) {
     next(e)
   }
