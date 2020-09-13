@@ -1,13 +1,21 @@
 const multer = require('multer');
+const { MulterError } = multer;
 
 const limits = {
-  fileSize: 300, // 1MB
+  fileSize: 1000000, // 1MB
+}
+
+class uploadError extends MulterError {
+  constructor(message) {
+    super();
+    this.message = message
+  }
 }
 
 const fileFilter = function fileFilter(req, file, cb) {
   
   if (!file.mimetype.includes('image/')) {
-    return cb(null, false)
+    return cb(new uploadError('File type not accepted.'), false)
   }
 
   cb(null, true); // accept
@@ -22,7 +30,7 @@ const upload = multer({
 });
 
 const multerErrorHandler = function multerErrorHandler(err, req, res, next) {
-  if (err instanceof multer.MulterError) {
+  if (err instanceof MulterError) {
     return res.render('upload_error', {
       message: err.message,
       returnTo: req.originalUrl,
